@@ -15,7 +15,7 @@ const getLabels = async () => {
 
 export const useLabels = () => {
   const labelsQuery = useQuery(["labels"], getLabels, {
-    // staleTime: 1000 * 60 * 60,
+    staleTime: 1000 * 60 * 60,
     placeholderData: [
       {
         id: 739777675,

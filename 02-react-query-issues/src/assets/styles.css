@@ -48,3 +48,7 @@ h3 {
     transform: rotate(360deg);
   }
 }
+
+.label-active {
+  background-color: #fff8;
+}
