@@ -11,11 +11,7 @@ import { ILabel } from "../interfaces/label";
 
 const getLabels = async (): Promise<ILabel[]> => {
   await timeout(2000);
-  const { data } = await githubApi.get<ILabel[]>("/labels", {
-    headers: {
-      Authorization: null,
-    },
-  });
+  const { data } = await githubApi.get<ILabel[]>("/labels");
   return data;
 };
 

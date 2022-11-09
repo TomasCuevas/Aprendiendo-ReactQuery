@@ -1,3 +1,5 @@
+import { useQuery } from "@tanstack/react-query";
+
 //* helper *//
 import { timeout } from "../helpers/timeout";
 
@@ -6,7 +8,6 @@ import { githubApi } from "../api/githubApi";
 
 //* interface *//
 import { IIssue } from "../interfaces/issue";
-import { useQuery } from "@tanstack/react-query";
 
 const getIssues = async (): Promise<IIssue[]> => {
   await timeout(2000);
