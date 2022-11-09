@@ -8,9 +8,10 @@ import { githubApi } from "../api/githubApi";
 import { IIssue } from "../interfaces/issue";
 import { useQuery } from "@tanstack/react-query";
 
-const getIssues = async (): Promise<IIssue> => {
+const getIssues = async (): Promise<IIssue[]> => {
   await timeout(2000);
   const { data } = await githubApi.get("/issues");
+  console.log(data);
   return data;
 };
 

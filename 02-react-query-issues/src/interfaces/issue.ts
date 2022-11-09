@@ -11,7 +11,7 @@ export interface IIssue {
   title: string;
   user: User;
   labels: (Label | Labels2 | Labels3)[];
-  state: string;
+  state: "open" | "close";
   locked: boolean;
   assignee?: any;
   assignees: any[];
