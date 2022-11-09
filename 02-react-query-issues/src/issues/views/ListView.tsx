@@ -4,8 +4,12 @@ import { useState } from "react";
 import { IssueList } from "../components/IssueList";
 import { LabelPicker } from "../components/LabelPicker";
 
+//* hooks *//
+import { useLabels } from "../../hooks";
+
 export const ListView = () => {
   const [selectedLabel, setSelectedLabel] = useState<string[]>([]);
+  const { labelsQuery } = useLabels();
 
   const onLabelChange = (labelName: string) => {
     if (selectedLabel.includes(labelName)) {

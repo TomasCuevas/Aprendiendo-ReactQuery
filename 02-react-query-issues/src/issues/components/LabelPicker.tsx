@@ -1,5 +1,5 @@
 //* hooks *//
-import { useLabels } from "../../hooks/useLabels";
+import { useLabels } from "../../hooks";
 
 //* components *//
 import { LoadingIcon } from "../../shared/components/LoadingIcon";
