@@ -11,8 +11,7 @@ import { IIssue } from "../interfaces/issue";
 
 const getIssues = async (): Promise<IIssue[]> => {
   await timeout(2000);
-  const { data } = await githubApi.get("/issues");
-  console.log(data);
+  const { data } = await githubApi.get<IIssue[]>("/issues");
   return data;
 };
 
