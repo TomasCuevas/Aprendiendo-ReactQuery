@@ -5,11 +5,12 @@ import { IssueList } from "../components/IssueList";
 import { LabelPicker } from "../components/LabelPicker";
 
 //* hooks *//
-import { useLabels } from "../../hooks";
+import { useIssues } from "../../hooks";
+import { LoadingIcon } from "../../shared/components/LoadingIcon";
 
 export const ListView = () => {
   const [selectedLabel, setSelectedLabel] = useState<string[]>([]);
-  const { labelsQuery } = useLabels();
+  const { issuesQuery } = useIssues();
 
   const onLabelChange = (labelName: string) => {
     if (selectedLabel.includes(labelName)) {
@@ -22,7 +23,11 @@ export const ListView = () => {
   return (
     <div className="row mt-5">
       <div className="col-8">
-        <IssueList />
+        {issuesQuery.isLoading ? (
+          <LoadingIcon />
+        ) : (
+          <IssueList issues={issuesQuery.data} />
+        )}
       </div>
 
       <div className="col-4">

@@ -1,7 +1,14 @@
 //* components *//
+import { IIssue } from "../../interfaces/issue";
+
+//* interface *//
 import { IssueItem } from "./IssueItem";
 
-export const IssueList = () => {
+interface Props {
+  issues: IIssue[];
+}
+
+export const IssueList: React.FC<Props> = ({ issues }) => {
   return (
     <div className="card border-white">
       <div className="card-header bg-dark">
@@ -18,8 +25,8 @@ export const IssueList = () => {
         </ul>
       </div>
       <div className="card-body text-dark">
-        {[1, 2, 3].map((issue) => (
-          <IssueItem key={issue} />
+        {issues.map((issue) => (
+          <IssueItem key={issue.id} />
         ))}
       </div>
     </div>
