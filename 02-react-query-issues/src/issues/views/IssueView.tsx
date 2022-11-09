@@ -11,7 +11,7 @@ export const IssueView = () => {
   const params = useParams();
   const { id = 0 } = params;
 
-  const { issueQuery } = useIssue(Number(id));
+  const { issueQuery, issueQueryComments } = useIssue(Number(id));
 
   if (issueQuery.isLoading) return <LoadingIcon />;
   if (!issueQuery.data) return <Navigate to="/issues/list" />;
@@ -26,8 +26,12 @@ export const IssueView = () => {
       <IssueComment issue={issueQuery.data} />
 
       {/* Comentario de otros */}
-      {/* <IssueComment body={comment2} />
-      <IssueComment body={comment3} /> */}
+      {issueQueryComments.isLoading ? <LoadingIcon /> : null}
+      {issueQueryComments.data
+        ? issueQueryComments.data.map((issueComment) => (
+            <IssueComment key={issueComment.id} issue={issueComment} />
+          ))
+        : null}
     </div>
   );
 };
