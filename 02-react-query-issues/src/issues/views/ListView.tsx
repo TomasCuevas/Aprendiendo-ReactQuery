@@ -8,8 +8,13 @@ import { LabelPicker } from "../components/LabelPicker";
 import { useIssues } from "../../hooks";
 import { LoadingIcon } from "../../shared/components/LoadingIcon";
 
+//* interface *//
+import { State } from "../../interfaces/issue";
+
 export const ListView = () => {
   const [selectedLabel, setSelectedLabel] = useState<string[]>([]);
+  const [state, setState] = useState<State>();
+
   const { issuesQuery } = useIssues();
 
   const onLabelChange = (labelName: string) => {
@@ -26,7 +31,11 @@ export const ListView = () => {
         {issuesQuery.isLoading ? (
           <LoadingIcon />
         ) : (
-          <IssueList issues={issuesQuery.data || []} />
+          <IssueList
+            issues={issuesQuery.data || []}
+            state={state}
+            onStateChange={(newState) => setState(newState)}
+          />
         )}
       </div>
 

@@ -11,7 +11,7 @@ export interface IIssue {
   title: string;
   user: User;
   labels: (Label | Labels2 | Labels3)[];
-  state: "open" | "close";
+  state: State;
   locked: boolean;
   assignee?: any;
   assignees: any[];
@@ -30,6 +30,8 @@ export interface IIssue {
   draft?: boolean;
   pull_request?: Pullrequest;
 }
+
+export type State = "open" | "closed";
 
 interface Pullrequest {
   url: string;

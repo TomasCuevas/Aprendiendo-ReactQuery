@@ -1,26 +1,47 @@
 //* components *//
-import { IIssue } from "../../interfaces/issue";
+import { IssueItem } from "./IssueItem";
 
 //* interface *//
-import { IssueItem } from "./IssueItem";
+import { IIssue, State } from "../../interfaces/issue";
 
 interface Props {
   issues: IIssue[];
+  state?: State;
+  onStateChange: (newState?: State) => void;
 }
 
-export const IssueList: React.FC<Props> = ({ issues }) => {
+export const IssueList: React.FC<Props> = ({
+  issues,
+  state,
+  onStateChange,
+}) => {
   return (
     <div className="card border-white">
       <div className="card-header bg-dark">
         <ul className="nav nav-pills card-header-pills">
           <li className="nav-item">
-            <a className="nav-link active">All</a>
+            <a
+              className={`nav-link ${state ? null : "active"}`}
+              onClick={() => onStateChange(undefined)}
+            >
+              All
+            </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link">Open</a>
+            <a
+              className={`nav-link ${state === "open" ? "active" : null}`}
+              onClick={() => onStateChange("open")}
+            >
+              Open
+            </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link">Closed</a>
+            <a
+              className={`nav-link ${state === "closed" ? "active" : null}`}
+              onClick={() => onStateChange("closed")}
+            >
+              Closed
+            </a>
           </li>
         </ul>
       </div>
