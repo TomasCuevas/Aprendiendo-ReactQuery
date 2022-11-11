@@ -9,13 +9,15 @@ import { githubApi } from "../api/githubApi";
 //* interface *//
 import { IIssue } from "../interfaces/issue";
 
-const getIssue = async (issueNumber: number): Promise<IIssue> => {
+export const getIssue = async (issueNumber: number): Promise<IIssue> => {
   await timeout(2000);
   const { data } = await githubApi.get<IIssue>(`/issues/${issueNumber}`);
   return data;
 };
 
-const getIssueComments = async (issueNumber: number): Promise<IIssue[]> => {
+export const getIssueComments = async (
+  issueNumber: number
+): Promise<IIssue[]> => {
   await timeout(2000);
   const { data } = await githubApi.get<IIssue[]>(
     `/issues/${issueNumber}/comments`
