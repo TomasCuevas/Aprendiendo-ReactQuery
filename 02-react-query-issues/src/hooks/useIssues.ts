@@ -7,18 +7,34 @@ import { timeout } from "../helpers/timeout";
 import { githubApi } from "../api/githubApi";
 
 //* interface *//
-import { IIssue } from "../interfaces/issue";
+import { IIssue, State } from "../interfaces/issue";
 
-const getIssues = async (): Promise<IIssue[]> => {
+interface Props {
+  selectedLabel: string[];
+  state?: State;
+}
+
+const getIssues = async (
+  labels: string[],
+  state?: State
+): Promise<IIssue[]> => {
   await timeout(2000);
-  const { data } = await githubApi.get<IIssue[]>("/issues");
+
+  const params = new URLSearchParams();
+  if (state) params.append("state", state);
+
+  const { data } = await githubApi.get<IIssue[]>("/issues", { params });
   return data;
 };
 
-export const useIssues = () => {
-  const issuesQuery = useQuery(["issues"], getIssues, {
-    staleTime: 1000 * 60 * 30,
-  });
+export const useIssues = ({ selectedLabel, state }: Props) => {
+  const issuesQuery = useQuery(
+    ["issues", { selectedLabel, state }],
+    () => getIssues(selectedLabel, state),
+    {
+      staleTime: 1000 * 60 * 30,
+    }
+  );
 
   return {
     issuesQuery,
