@@ -10,7 +10,7 @@ import { githubApi } from "../api/githubApi";
 import { IIssue, State } from "../interfaces/issue";
 
 interface Props {
-  selectedLabel: string[];
+  labels: string[];
   state?: State;
 }
 
@@ -22,15 +22,22 @@ const getIssues = async (
 
   const params = new URLSearchParams();
   if (state) params.append("state", state);
+  if (labels.length > 0) {
+    const labelString = labels.join(",");
+    params.append("labels", labelString);
+  }
+
+  params.append("page", "1");
+  params.append("per_page", "5");
 
   const { data } = await githubApi.get<IIssue[]>("/issues", { params });
   return data;
 };
 
-export const useIssues = ({ selectedLabel, state }: Props) => {
+export const useIssues = ({ labels, state }: Props) => {
   const issuesQuery = useQuery(
-    ["issues", { selectedLabel, state }],
-    () => getIssues(selectedLabel, state),
+    ["issues", { labels, state }],
+    () => getIssues(labels, state),
     {
       staleTime: 1000 * 60 * 30,
     }
