@@ -26,12 +26,8 @@ export const getIssueComments = async (
 };
 
 export const useIssue = (issueNumber: number) => {
-  const issueQuery = useQuery(
-    [`issue/${issueNumber}`],
-    () => getIssue(issueNumber),
-    {
-      staleTime: 1000 * 60 * 30,
-    }
+  const issueQuery = useQuery([`issue/${issueNumber}`], () =>
+    getIssue(issueNumber)
   );
 
   const issueQueryComments = useQuery(
@@ -39,7 +35,6 @@ export const useIssue = (issueNumber: number) => {
     () => getIssueComments(issueNumber),
     {
       enabled: issueQuery.data !== undefined,
-      staleTime: 1000 * 60 * 30,
     }
   );
 

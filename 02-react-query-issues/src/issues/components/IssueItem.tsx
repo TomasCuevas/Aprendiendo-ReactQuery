@@ -29,7 +29,9 @@ export const IssueItem: React.FC<Props> = ({ issue }) => {
   };
 
   const preSetData = () => {
-    queryClient.setQueryData([`issue/${issue.number}`], issue);
+    queryClient.setQueryData([`issue/${issue.number}`], issue, {
+      updatedAt: new Date().getTime() + 1000 * 60 * 30,
+    });
   };
 
   return (
