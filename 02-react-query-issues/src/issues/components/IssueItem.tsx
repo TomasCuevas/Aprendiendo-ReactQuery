@@ -5,7 +5,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { FiInfo, FiMessageSquare, FiCheckCircle } from "react-icons/fi";
 
 //* hook method *//
-import { getIssue } from "../../hooks";
+import { getIssue, getIssueComments } from "../../hooks";
 
 //* interface *//
 import { IIssue } from "../../interfaces/issue";
@@ -21,6 +21,10 @@ export const IssueItem: React.FC<Props> = ({ issue }) => {
   const onMouseEnter = () => {
     queryClient.prefetchQuery([`issue/${issue.number}`], () =>
       getIssue(Number(issue.number))
+    );
+
+    queryClient.prefetchQuery([`issue/${issue.number}/comments`], () =>
+      getIssueComments(Number(issue.number))
     );
   };
 
