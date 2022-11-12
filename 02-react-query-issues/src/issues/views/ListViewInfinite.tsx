@@ -5,7 +5,7 @@ import { IssueList } from "../components/IssueList";
 import { LabelPicker } from "../components/LabelPicker";
 
 //* hooks *//
-import { useIssues } from "../../hooks";
+import { useIssueInfinite } from "../../hooks";
 import { LoadingIcon } from "../../shared/components/LoadingIcon";
 
 //* interface *//
@@ -15,7 +15,7 @@ export const ListViewInfinite = () => {
   const [selectedLabel, setSelectedLabel] = useState<string[]>([]);
   const [state, setState] = useState<State>();
 
-  const { issuesQuery, page, nextPage, previousPage } = useIssues({
+  const { issuesQuery } = useIssueInfinite({
     labels: selectedLabel,
     state,
   });
@@ -35,7 +35,7 @@ export const ListViewInfinite = () => {
           <LoadingIcon />
         ) : (
           <IssueList
-            issues={issuesQuery.data || []}
+            issues={issuesQuery.data?.pages.flat() || []}
             state={state}
             onStateChange={(newState) => setState(newState)}
           />

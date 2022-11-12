@@ -12,15 +12,21 @@ import { IIssue, State } from "../interfaces/issue";
 interface Props {
   labels: string[];
   state?: State;
+}
+
+interface QueryProps {
   pageParam?: number;
+  queryKey: (string | Props)[];
 }
 
 const getIssues = async ({
-  labels,
   pageParam = 1,
-  state,
-}: Props): Promise<IIssue[]> => {
+  queryKey,
+}: QueryProps): Promise<IIssue[]> => {
   await timeout(2000);
+
+  const [_first, _second, args] = queryKey;
+  const { labels, state } = args as Props;
 
   const params = new URLSearchParams();
   if (state) params.append("state", state);
@@ -39,8 +45,10 @@ const getIssues = async ({
 export const useIssueInfinite = ({ state, labels }: Props) => {
   const issuesQuery = useInfiniteQuery(
     ["issues", "infinite", { state, labels, page: 1 }],
-    ({ pageParam }) => getIssues({ pageParam, state, labels })
+    getIssues
   );
 
-  return {};
+  return {
+    issuesQuery,
+  };
 };
