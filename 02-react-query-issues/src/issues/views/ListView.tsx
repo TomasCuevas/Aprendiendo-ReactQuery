@@ -15,7 +15,10 @@ export const ListView = () => {
   const [selectedLabel, setSelectedLabel] = useState<string[]>([]);
   const [state, setState] = useState<State>();
 
-  const { issuesQuery } = useIssues({ labels: selectedLabel, state });
+  const { issuesQuery, page, nextPage, previousPage } = useIssues({
+    labels: selectedLabel,
+    state,
+  });
 
   const onLabelChange = (labelName: string) => {
     if (selectedLabel.includes(labelName)) {
@@ -39,9 +42,13 @@ export const ListView = () => {
         )}
 
         <div className="d-flex mt-2 justify-content-between align-items-center">
-          <button className="btn btn-outline-primary">Prev</button>
-          <span>123</span>
-          <button className="btn btn-outline-primary">Next</button>
+          <button onClick={previousPage} className="btn btn-outline-primary">
+            Prev
+          </button>
+          <span>{page}</span>
+          <button onClick={nextPage} className="btn btn-outline-primary">
+            Next
+          </button>
         </div>
       </div>
 
