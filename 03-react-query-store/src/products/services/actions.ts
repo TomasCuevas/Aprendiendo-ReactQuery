@@ -5,6 +5,8 @@ interface getProductsProps {
 }
 
 export const getProducts = async ({ filterKey }: getProductsProps) => {
-  const { data } = await productsApi.get<IProduct[]>("/products");
+  const filterUrl = filterKey ? `category=${filterKey}` : "";
+
+  const { data } = await productsApi.get<IProduct[]>(`/products?${filterUrl}`);
   return data;
 };
