@@ -1,4 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
+
+//* PAGES *//
 import {
   CompleteListPage,
   MensPage,
@@ -6,6 +8,8 @@ import {
   StoreLayout,
   WomensPage,
 } from "../products";
+
+//* ERROR PAGE *//
 import { ErrorPage } from "../ErrorPage";
 
 export const router = createBrowserRouter([
