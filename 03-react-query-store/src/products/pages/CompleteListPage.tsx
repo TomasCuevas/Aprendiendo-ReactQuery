@@ -9,7 +9,7 @@ export const CompleteListPage: React.FC = () => {
       <h1 className="text-2xl font-bold">Todos los productos</h1>
 
       {isLoading && "Cargando..."}
-      <ProductList />
+      <ProductList products={products} />
     </div>
   );
 };
