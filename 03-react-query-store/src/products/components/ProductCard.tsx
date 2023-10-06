@@ -17,14 +17,20 @@ const productPrice = (price: number) => {
 interface Props {
   product: IProduct;
   fullDescription?: boolean;
+  prefetchProduct?: (id: number) => void;
 }
 
 export const ProductCard: React.FC<Props> = ({
   product,
+  prefetchProduct,
   fullDescription = false,
 }) => {
   return (
-    <Link to={`/product/${product.id}`} className="flex">
+    <Link
+      to={`/product/${product.id}`}
+      className="flex"
+      onMouseEnter={() => prefetchProduct && prefetchProduct(product.id)}
+    >
       <Card className="relative flex flex-col max-w-xs p-3 mx-auto space-y-3 bg-white border border-white shadow-lg md:flex-row md:space-x-5 md:space-y-0 rounded-xl md:max-w-3xl">
         <div className="grid w-full bg-white md:w-1/3 place-items-center">
           <Image

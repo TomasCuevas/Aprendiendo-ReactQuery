@@ -5,6 +5,7 @@ export { ProductList } from "./components/ProductList";
 
 export { StoreLayout } from "./layout/StoreLayout";
 
+export { usePrefetchProduct } from "./hooks/usePrefetchProduct";
 export { useProduct } from "./hooks/useProduct";
 export { useProducts } from "./hooks/useProducts";
 
