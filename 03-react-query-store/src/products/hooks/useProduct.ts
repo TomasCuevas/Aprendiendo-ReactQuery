@@ -5,23 +5,21 @@ import { productActions } from "../";
 
 //* OPTIONS *//
 interface Options {
-  filterKey?: string;
+  id: number;
 }
 
-export const useProducts = ({ filterKey }: Options) => {
+export const useProduct = ({ id }: Options) => {
   const {
     error,
     isError,
     isLoading,
-    data: products,
-  } = useQuery(["products", { filterKey }], () =>
-    productActions.getProducts({ filterKey })
-  );
+    data: product,
+  } = useQuery(["product", id], () => productActions.getProductById(id));
 
   return {
     error,
     isError,
     isLoading,
-    products: products || [],
+    product,
   };
 };

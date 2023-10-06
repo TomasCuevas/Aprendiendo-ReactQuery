@@ -5,6 +5,7 @@ import {
   CompleteListPage,
   MensPage,
   NewProduct,
+  ProductByIdPage,
   StoreLayout,
   WomensPage,
 } from "../products";
@@ -33,6 +34,10 @@ export const router = createBrowserRouter([
       {
         path: "new",
         element: <NewProduct />,
+      },
+      {
+        path: "product/:id",
+        element: <ProductByIdPage />,
       },
     ],
   },

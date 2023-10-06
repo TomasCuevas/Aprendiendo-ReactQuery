@@ -10,3 +10,8 @@ export const getProducts = async ({ filterKey }: getProductsProps) => {
   const { data } = await productsApi.get<IProduct[]>(`/products?${filterUrl}`);
   return data;
 };
+
+export const getProductById = async (productId: number) => {
+  const { data } = await productsApi.get<IProduct>(`/products/${productId}`);
+  return data;
+};
