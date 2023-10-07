@@ -2,6 +2,7 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
 //* NEXTUI *//
 import { Button, Image, Input, Textarea } from "@nextui-org/react";
+import { useState } from "react";
 
 interface FormInputs {
   title: string;
@@ -12,11 +13,23 @@ interface FormInputs {
 }
 
 export const NewProduct: React.FC = () => {
-  const { control, handleSubmit } = useForm<FormInputs>();
+  const [tempImage, setTempImage] = useState("");
+
+  const { control, handleSubmit, watch } = useForm<FormInputs>({
+    defaultValues: {
+      category: "men's clothing",
+      description: "",
+      image: "",
+      price: 0,
+      title: "",
+    },
+  });
 
   const onSubmit: SubmitHandler<FormInputs> = (data) => {
     console.log(data);
   };
+
+  const newImage = watch("image");
 
   return (
     <div className="flex-col w-full">
@@ -45,7 +58,9 @@ export const NewProduct: React.FC = () => {
               render={({ field }) => (
                 <Input
                   value={String(field.value)}
-                  onChange={field.onChange}
+                  onChange={(event) =>
+                    field.onChange(Number(event.target.value))
+                  }
                   type="number"
                   label="Precio del producto"
                 />
@@ -99,14 +114,8 @@ export const NewProduct: React.FC = () => {
             </Button>
           </div>
 
-          <div
-            className="flex items-center p-10 bg-white rounded-2xl"
-            style={{
-              width: "500px",
-              height: "600px",
-            }}
-          >
-            <Image src="https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg" />
+          <div className="flex items-center p-10 bg-white rounded-2xl w-[500px] h-[600px]">
+            <Image src={newImage} className="object-cover w-full h-full " />
           </div>
         </div>
       </form>
