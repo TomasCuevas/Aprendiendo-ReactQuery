@@ -14,8 +14,10 @@ export const useProducts = ({ filterKey }: Options) => {
     isError,
     isLoading,
     data: products,
-  } = useQuery(["products", { filterKey }], () =>
-    productActions.getProducts({ filterKey })
+  } = useQuery(
+    ["products", { filterKey }],
+    () => productActions.getProducts({ filterKey }),
+    { staleTime: 1000 * 60 * 60 }
   );
 
   return {

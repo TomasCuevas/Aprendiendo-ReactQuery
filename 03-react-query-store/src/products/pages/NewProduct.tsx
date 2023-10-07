@@ -1,10 +1,12 @@
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
 
 //* NEXTUI *//
 import { Button, Image, Input, Textarea } from "@nextui-org/react";
-import { productActions } from "..";
 
+//* HOOKS *//
+import { useProductMutation } from "../";
+
+//* FORM-VALUES *//
 interface FormInputs {
   title: string;
   price: number;
@@ -14,9 +16,7 @@ interface FormInputs {
 }
 
 export const NewProduct: React.FC = () => {
-  const mutation = useMutation({
-    mutationFn: productActions.createProduct,
-  });
+  const { mutation } = useProductMutation();
 
   const { control, handleSubmit, watch } = useForm<FormInputs>({
     defaultValues: {

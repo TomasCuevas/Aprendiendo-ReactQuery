@@ -7,6 +7,7 @@ export { StoreLayout } from "./layout/StoreLayout";
 
 export { usePrefetchProduct } from "./hooks/usePrefetchProduct";
 export { useProduct } from "./hooks/useProduct";
+export { useProductMutation } from "./hooks/useProductMutation";
 export { useProducts } from "./hooks/useProducts";
 
 export * from "./interfaces";
