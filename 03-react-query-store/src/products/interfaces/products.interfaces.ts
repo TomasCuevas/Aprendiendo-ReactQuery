@@ -8,6 +8,14 @@ export interface IProduct {
   rating?: Rating;
 }
 
+export interface IProductPayload {
+  title: string;
+  price: number;
+  description: string;
+  category: string;
+  image: string;
+}
+
 export interface Rating {
   rate: number;
   count: number;

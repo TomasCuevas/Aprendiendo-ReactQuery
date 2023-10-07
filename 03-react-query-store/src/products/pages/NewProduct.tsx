@@ -1,8 +1,9 @@
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
 
 //* NEXTUI *//
 import { Button, Image, Input, Textarea } from "@nextui-org/react";
-import { useState } from "react";
+import { productActions } from "..";
 
 interface FormInputs {
   title: string;
@@ -13,20 +14,24 @@ interface FormInputs {
 }
 
 export const NewProduct: React.FC = () => {
-  const [tempImage, setTempImage] = useState("");
+  const mutation = useMutation({
+    mutationFn: productActions.createProduct,
+  });
 
   const { control, handleSubmit, watch } = useForm<FormInputs>({
     defaultValues: {
       category: "men's clothing",
-      description: "",
-      image: "",
-      price: 0,
-      title: "",
+      description:
+        "Esta nueva camiseta titular de Boca Juniors adidas une la pasión y el barrio con diferentes tonos que logran un efecto visual y una prominente franja central que resaltan sus colores, el azul y oro.Un diseño innovador para un equipo en constante evolución. Su tejido ligero, los modernos paneles de mesh y la tecnología de absorción AEROREADY se combinan para mantener cómodos a los hinchas del club.",
+      image:
+        "https://assets.adidas.com/images/w_600,f_auto,q_auto/57d46a83396a46268447a7bb4a751909_9366/Camiseta_Titular_Boca_Juniors_23-24_Azul_HT3697_01_laydown.jpg",
+      price: 32_000,
+      title: "Camiseta Oficial de Boca Juniors",
     },
   });
 
   const onSubmit: SubmitHandler<FormInputs> = (data) => {
-    console.log(data);
+    mutation.mutate(data);
   };
 
   const newImage = watch("image");
@@ -109,7 +114,12 @@ export const NewProduct: React.FC = () => {
               )}
             />
 
-            <Button type="submit" className="w-full" color="primary">
+            <Button
+              isDisabled={mutation.isLoading}
+              type="submit"
+              className="w-full uppercase"
+              color="primary"
+            >
               Crear
             </Button>
           </div>

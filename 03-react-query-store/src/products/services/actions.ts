@@ -1,4 +1,4 @@
-import { type IProduct, productsApi } from "../";
+import { type IProduct, type IProductPayload, productsApi } from "../";
 
 interface getProductsProps {
   filterKey?: string;
@@ -13,5 +13,14 @@ export const getProducts = async ({ filterKey }: getProductsProps) => {
 
 export const getProductById = async (productId: number) => {
   const { data } = await productsApi.get<IProduct>(`/products/${productId}`);
+  return data;
+};
+
+export const createProduct = async (newProductData: IProductPayload) => {
+  const { data } = await productsApi.post<IProduct>(
+    "/products",
+    newProductData
+  );
+
   return data;
 };
