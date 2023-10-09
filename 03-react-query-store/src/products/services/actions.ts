@@ -5,7 +5,11 @@ interface getProductsProps {
 }
 
 const sleep = async (seconds: number) => {
-  await setTimeout(() => {}, seconds * 1000);
+  await new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(true);
+    }, seconds * 1000);
+  });
 };
 
 export const getProducts = async ({ filterKey }: getProductsProps) => {
