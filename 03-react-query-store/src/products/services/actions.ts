@@ -4,6 +4,10 @@ interface getProductsProps {
   filterKey?: string;
 }
 
+const sleep = async (seconds: number) => {
+  await setTimeout(() => {}, seconds * 1000);
+};
+
 export const getProducts = async ({ filterKey }: getProductsProps) => {
   const filterUrl = filterKey ? `category=${filterKey}` : "";
 
@@ -17,6 +21,8 @@ export const getProductById = async (productId: number) => {
 };
 
 export const createProduct = async (newProductData: IProductPayload) => {
+  await sleep(5);
+
   const { data } = await productsApi.post<IProduct>(
     "/products",
     newProductData
