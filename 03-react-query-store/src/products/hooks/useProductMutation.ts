@@ -8,7 +8,6 @@ export const useProductMutation = () => {
   const mutation = useMutation({
     mutationFn: productActions.createProduct,
     onMutate: (data) => {
-      console.log("Mutando - Optimistic Updates");
       const optimisticProduct: IProduct = { id: Math.random(), ...data };
       queryClient.setQueryData<IProduct[]>(
         ["products", { filterKey: data.category }],
@@ -16,14 +15,20 @@ export const useProductMutation = () => {
           return old ? [...old, optimisticProduct] : [optimisticProduct];
         }
       );
+
+      return optimisticProduct;
     },
-    onSuccess: (data) => {
+    onSuccess: (data, _variables, context) => {
       // queryClient.invalidateQueries(["products", { filterKey: data.category }]);
 
       queryClient.setQueryData<IProduct[]>(
         ["products", { filterKey: data.category }],
         (old) => {
-          return old ? [...old, data] : [data];
+          if (!old) return [data];
+
+          return old.map((cacheProduct) => {
+            return cacheProduct.id === context?.id ? data : cacheProduct;
+          });
         }
       );
     },
